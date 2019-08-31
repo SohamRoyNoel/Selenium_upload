@@ -1,0 +1,39 @@
+package TestData_Import;
+
+import java.io.*;		
+import java.util.*;		
+import org.dom4j.*;		
+import org.dom4j.io.SAXReader;		
+import org.openqa.selenium.By;		
+import org.openqa.selenium.WebDriver;		
+import org.openqa.selenium.chrome.ChromeDriver;	
+
+
+
+public class Xml_Import extends Thread {
+
+	public static void main(String[] args) throws Exception {
+		
+		System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().window().maximize();
+	    String baseUrl = "https://www.facebook.com/";
+
+	    driver.get(baseUrl);
+		File fl = new File("E:\\Study\\TestData.xml");
+		
+		SAXReader reader = new SAXReader();
+		Document document = reader.read(fl);
+		String ss = document.selectSingleNode("//menu/email").getText();
+		String ps = document.selectSingleNode("//menu/password").getText();
+		String but = document.selectSingleNode("//menu/submit").getText();
+				
+		// sending vals
+		driver.findElement(By.id(ss)).sendKeys("cognizant doesnt pay us");
+		driver.findElement(By.id(ps)).sendKeys("Pay us please");
+		driver.findElement(By.id(but)).click();
+		
+
+	}
+
+}
