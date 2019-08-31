@@ -1,0 +1,61 @@
+-----------------------------------------------------------------------
+Download jars:
+1> sikulixlibswin-1.1.1 JAR : https://jar-download.com/?search_box=sikulixlibswin-1.1.1
+2> sikulixsetup-1.1.0.jar : https://launchpadlibrarian.net/281703123/sikulixsetup-1.1.0.jar
+-----------------------------------------------------------------------
+
+package newpackage;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.sikuli.script.*;
+
+import org.sikuli.script.Screen;
+
+public class sikuli {
+
+	public static void main(String[] args) throws Exception {
+		
+		// Do not move your damn mouse
+		
+		Screen screen=new Screen();
+		
+		// capture field snipping tool
+		Pattern username = new Pattern("E:\\Study\\username.png");
+		Pattern password = new Pattern("E:\\Study\\password.png");
+		Pattern loginBtn = new Pattern("E:\\Study\\loginbtn.png");
+		
+		System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();	
+		driver.manage().window().maximize();
+	    String baseUrl = "https://www.facebook.com/";
+	    driver.get(baseUrl);
+	    
+	    screen.wait(username, 10);
+	    
+	    screen.type(username, "noelleroy720@gmail.com");
+	    screen.type(password, "anu");
+	    screen.click(loginBtn);
+
+	}
+
+}
+
+----------------------------------------------------
+Click	: This method is used to click on an element on the screen using image name as the parameter.	
+Screen s = new Screen();
+
+s.click("QA.png");
+----------------------------------------------------
+doubleClick :	This method is used to double click on an element. It accepts image name as the parameter.	
+Screen s = new Screen();
+s.doubleClick("QA.png");
+----------------------------------------------------
+Type :	This method is used to provide input value to an element. It accepts the image name and text to be sent as parameters.	
+s.type("QA.png","TEXT");
+----------------------------------------------------
+Hover :	This method is used to hover over an element. It accepts image name as the parameter.	
+s.hover("QA.png");
+----------------------------------------------------
+Find :	This method is used to find a specific element on the screen. It accepts image name as the parameter.	
+s.find("QA.png");
