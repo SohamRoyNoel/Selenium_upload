@@ -1,0 +1,73 @@
+package TestData_Import;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class excel {
+	
+	public static XSSFSheet sheetInitiator() throws Exception {
+		File file = new File("E:\\Study\\SeleniumExcel.xlsx");
+		FileInputStream fileInputStream = new FileInputStream(file);
+		XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		return sheet;
+	}
+	
+	public static void main(String[] args) throws Exception {
+		for (int i = 0; i <= getRowcount(); i++) {
+			for (int j = 0; j <= getColumncount(); j++) {
+				search(readExcel(i, j));
+				System.out.println(getColumncount());
+			}
+		}
+	}
+	
+	public static int getRowcount() throws Exception {
+		XSSFSheet sheet = sheetInitiator();
+		int rowCount = sheet.getLastRowNum()-sheet.getFirstRowNum();
+		return rowCount;
+	}
+	
+	public static int getColumncount() throws Exception{
+		XSSFSheet sheet = sheetInitiator();
+		int colColumn = sheet.getLeftCol();
+		return colColumn;
+	}
+	
+	public static String readExcel(int row, int column) throws Exception {
+		XSSFSheet sheet = sheetInitiator();
+		XSSFRow rows = sheet.getRow(row);
+		XSSFCell cells = rows.getCell(column);
+		String data = cells.getStringCellValue();
+		return data;
+	}
+
+	public static String getProperty(String Keys) throws Exception {
+		File file = new File("E:\\Study\\SeleniumExcel.properties");
+		FileInputStream fileInputStream = new FileInputStream(file);
+		Properties prop = new Properties();
+		prop.load(fileInputStream);
+		String data = prop.getProperty(Keys);
+		return data;
+	}
+	
+	public static void search(String loc) throws Exception {
+		System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.get(getProperty("url"));
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.name(getProperty("search"))).sendKeys(loc);
+		driver.findElement(By.xpath(getProperty("button"))).click();
+		driver.navigate().back();
+	}
+}
