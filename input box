@@ -1,0 +1,41 @@
+package newpackage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class ImputBoxTesting extends Thread {
+
+	public static void main(String[] args) throws Exception {
+
+		System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+	    String baseUrl = "http://demo.guru99.com/test/login.html";
+	    
+	    driver.get(baseUrl);
+	    
+	    // Find the fields by name
+	    WebElement email = driver.findElement(By.id("email"));
+	    WebElement pass = driver.findElement(By.name("passwd"));
+	    WebElement sub = driver.findElement(By.xpath("//*[@id=\"SubmitLogin\"]"));
+	    
+	    // Push Value into the field 
+	    email.sendKeys("You are a dick");
+	    pass.sendKeys("amar choto dhon");
+	    
+	    // Holding the system
+	    System.out.println("Thread slept");
+	    Thread.sleep(6000);
+	    System.out.println("Thread Awake");
+	    
+	    // Clearing the value
+	    // email.clear();
+	    // pass.clear();
+	    
+	    // Clicking the button
+	    sub.click();
+	    System.out.println("Form Submitted");
+
+	}
+
+}
