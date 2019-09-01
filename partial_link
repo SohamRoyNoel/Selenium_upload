@@ -1,0 +1,31 @@
+package newpackage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class LinkAndPertial_Link {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+	    String baseUrl = "http://demo.guru99.com/test/link.html";
+	    String expectedTitle = "Welcome: Mercury Tours";
+	    String actualTitle = "";
+	    
+	    driver.get(baseUrl);
+	    actualTitle = driver.getTitle();
+	    
+	    // link and pertial link both are case sensitive
+	    
+	    WebElement link = driver.findElement(By.linkText("click here"));
+	    link.click();
+	    
+	    driver.navigate().back();
+	    
+	    WebElement perLink = driver.findElement(By.xpath("/html/body/a[2]"));
+	    perLink.click();
+
+	}
+
+}
